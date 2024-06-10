@@ -1,9 +1,11 @@
 <template>
     <div class="login-container">
         <div class="login-box">
-            <img src="/build/assets/logo-filkom.png" alt="Filkom Logo" class="logo" />
-            <h2>SISTEM INFORMASI PEMINJAMAN RUANGAN</h2>
-            <h3>UNIVERSITAS BRAWIJAYA</h3>
+            <div class="logo-container">
+                <img src="/build/assets/logo-filkom.png" alt="Filkom Logo" class="logo" />
+                <h2>SISTEM INFORMASI PEMINJAMAN RUANGAN</h2>
+                <h3>FAKULTAS ILMU KOMPUTER</h3>
+            </div>
             <form @submit.prevent="login">
                 <div class="input-group">
                     <input type="email" v-model="email" placeholder="Input email" required />
@@ -11,14 +13,14 @@
                 <div class="input-group">
                     <input type="password" v-model="password" placeholder="Input password" required />
                 </div>
-                <button type="submit" class="btn-login">LOGIN</button>
+                <button type="submit" class="btn-login">MASUK</button>
             </form>
             <button class="btn-login btn-google-login">
                 <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo"
                     class="google-logo" />
-                Login dengan Google
+                Masuk dengan Google
             </button>
-            <p class="register-text">Belum punya akun? <a href="#">Daftar</a></p>
+            <p class="register-text">Belum punya akun? <a href="/register">Daftar</a></p>
         </div>
     </div>
 </template>
@@ -33,7 +35,6 @@ export default {
     },
     methods: {
         login() {
-            // Handle login logic here
             console.log('Email:', this.email);
             console.log('Password:', this.password);
         }
@@ -42,6 +43,12 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
 .login-container {
     display: flex;
     justify-content: center;
@@ -58,13 +65,25 @@ export default {
     text-align: center;
 }
 
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
 .logo {
     width: 150px;
 }
 
-h2,
+h2 {
+    margin: 0.5rem 0;
+    font-size: 1.5rem;
+}
+
 h3 {
     margin: 0.5rem 0;
+    font-size: 1.2rem;
 }
 
 .input-group {
@@ -90,6 +109,7 @@ h3 {
 
 .btn-login:hover {
     background-color: #0056b3;
+    color: white;
 }
 
 .btn-google-login {
@@ -97,6 +117,8 @@ h3 {
     justify-content: center;
     align-items: center;
     margin-top: 1rem;
+    background-color: #ADD8E6;
+    color: #007bff;
 }
 
 .btn-google-login .google-logo {
