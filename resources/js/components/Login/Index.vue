@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
@@ -34,9 +36,16 @@ export default {
         }
     },
     methods: {
-        login() {
-            console.log('Email:', this.email);
-            console.log('Password:', this.password);
+        async login() {
+            try {
+                const response = await axios.post('/api/login', {
+                    email: this.email,
+                    password: this.password
+                });
+                console.log('Login successful:', response.data);
+            } catch (error) {
+                console.error('Login error:', error.response.data);
+            }
         }
     }
 }

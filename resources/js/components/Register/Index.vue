@@ -8,6 +8,9 @@
             </div>
             <form @submit.prevent="register">
                 <div class="input-group">
+                    <input type="name" v-model="name" placeholder="Input name" required />
+                </div>
+                <div class="input-group">
                     <input type="email" v-model="email" placeholder="Input email" required />
                 </div>
                 <div class="input-group">
@@ -29,26 +32,39 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
+            name: '',
             email: '',
             password: '',
             confirmPassword: ''
         }
     },
     methods: {
-        register() {
-            // Handle registration logic
-            console.log('Register with', this.email, this.password, this.confirmPassword);
+        async register() {
+            try {
+                const response = await axios.post('/api/register', {
+                    name: this.name,
+                    email: this.email,
+                    password: this.password,
+                    password_confirmation: this.confirmPassword
+                });
+                console.log('Registration successful:', response.data);
+            } catch (error) {
+                console.error('Registration error:', error.response.data);
+            }
         },
         registerWithGoogle() {
-            // Handle Google registration logic
             console.log('Register with Google');
+            // Implement Google registration logic
         }
     }
 }
 </script>
+
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
