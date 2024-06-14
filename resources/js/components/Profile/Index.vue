@@ -40,12 +40,8 @@
 </template>
 
 <script>
-<<<<<<< Updated upstream
 import Sidebar from '@/components/Layout/Sidebar.vue'
 
-=======
-import Sidebar from '@components/Layout/sidebar.vue';
->>>>>>> Stashed changes
 export default {
     components: {
         Sidebar
