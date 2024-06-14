@@ -3,40 +3,45 @@
         <Sidebar />
         <div class="content">
             <h1 class="title">Profile</h1>
-            <div class="form-group">
-                <label class="title2" for="email">Alamat email *</label>
-                <input type="email" id="email" v-model="email" placeholder="shafaradina@student.ub.ac.id">
-            </div>
-            <div class="form-group">
-                <label class="title2" for="name">Nama Lengkap *</label>
-                <input type="text" id="name" v-model="name" placeholder="Shafa Auliya Faradina">
-            </div>
-            <div class="form-group">
-                <label class="title2" for="nim">NIM *</label>
-                <input type="text" id="nim" v-model="nim" placeholder="215150700111057">
-            </div>
-            <div class="form-group">
-                <label class="title2" for="program">Program Studi *</label>
-                <select id="program" v-model="program">
-                    <option value="Teknologi Informasi">Teknologi Informasi</option>
-                    <option value="Pendidikan Teknologi Informasi">PendidikanTeknologi Informasi</option>
-                    <option value="Sistem Informasi">Sistem Informasi</option>
-                    <option value="Teknik Informatika">Teknik Informatika</option>
-                    <option value="Teknik Komputer">Teknik Komputer</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="title2" for="phone">Nomor HP</label>
-                <input type="tel" id="phone" v-model="phone" placeholder="+62 81226105968">
-            </div>
-            <button @click="updateProfile">Update</button>
-            <button type="reset" @click="resetForm">Reset</button>
+            <form @submit.prevent="updateProfile">
+                <div class="form-group">
+                    <label class="form-label" for="email">Alamat email *</label>
+                    <input type="email" id="email" v-model="email" required placeholder="shafaradina@student.ub.ac.id">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="name">Nama Lengkap *</label>
+                    <input type="text" id="name" v-model="name" required placeholder="Shafa Auliya Faradina">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="nim">NIM *</label>
+                    <input type="text" id="nim" v-model="nim" required placeholder="215150700111057">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="program">Program Studi *</label>
+                    <select id="program" v-model="program" required>
+                        <option value="Teknologi Informasi">Teknologi Informasi</option>
+                        <option value="Pendidikan Teknologi Informasi">Pendidikan Teknologi Informasi</option>
+                        <option value="Sistem Informasi">Sistem Informasi</option>
+                        <option value="Teknik Informatika">Teknik Informatika</option>
+                        <option value="Teknik Komputer">Teknik Komputer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="phone">Nomor HP</label>
+                    <input type="tel" id="phone" v-model="phone" placeholder="+62 81226105968">
+                </div>
+                <div class="form-actions">
+                    <button type="submit">Update</button>
+                    <button type="reset" @click="resetForm">Reset</button>
+                </div>
+            </form>
         </div>
     </div>
 </template>
 
 <script>
 import Sidebar from '@/components/Layout/Sidebar.vue'
+
 export default {
     components: {
         Sidebar
@@ -47,12 +52,7 @@ export default {
             name: '',
             nim: '',
             program: 'Teknologi Informasi',
-            phone: '',
-            timezone: 'Asia/Jakarta',
-            language: 'id',
-            currentPassword: '',
-            newPassword: '',
-            confirmPassword: '',
+            phone: ''
         };
     },
     methods: {
@@ -62,12 +62,7 @@ export default {
                 name: this.name,
                 nim: this.nim,
                 program: this.program,
-                phone: this.phone,
-                timezone: this.timezone,
-                language: this.language,
-                currentPassword: this.currentPassword,
-                newPassword: this.newPassword,
-                confirmPassword: this.confirmPassword,
+                phone: this.phone
             });
         },
         resetForm() {
@@ -76,15 +71,8 @@ export default {
             this.nim = '';
             this.program = 'Teknologi Informasi';
             this.phone = '';
-            this.timezone = 'Asia/Jakarta';
-            this.language = 'id';
-            this.currentPassword = '';
-            this.newPassword = '';
-            this.confirmPassword = '';
-        },
-        cancel() {
-        },
-    },
+        }
+    }
 };
 </script>
 
@@ -104,10 +92,10 @@ export default {
     font-weight: bold;
     border-bottom: 2px solid #000;
     padding-bottom: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-.title2 {
+.form-label {
     font-size: small;
     font-weight: bold;
 }
@@ -125,6 +113,7 @@ input,
 select {
     width: 100%;
     padding: 10px;
+    border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
     background-color: #F5F8FA;
@@ -147,5 +136,10 @@ button:hover {
 button[type="reset"] {
     background-color: darkgrey;
     color: #000;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
 }
 </style>

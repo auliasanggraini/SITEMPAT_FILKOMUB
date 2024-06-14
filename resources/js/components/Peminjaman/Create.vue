@@ -5,47 +5,47 @@
             <h1 class="title">Form Peminjaman</h1>
             <form @submit.prevent="submitForm">
                 <div class="form-group">
-                    <label class="title2" for="penanggungJawab">Penanggung Jawab *</label>
+                    <label class="form-label" for="penanggungJawab">Penanggung Jawab *</label>
                     <input type="text" id="penanggungJawab" v-model="form.penanggungJawab" required />
                 </div>
                 <div class="form-group">
-                    <label class="title2" for="nim">NIM *</label>
-                    <input type="text" id="nim" v-model="form.nim" required/>
+                    <label class="form-label" for="nim">NIM *</label>
+                    <input type="text" id="nim" v-model="form.nim" required />
                 </div>
                 <div class="form-group">
-                    <label class="title2" for="programStudi">Program Studi *</label>
+                    <label class="form-label" for="programStudi">Program Studi *</label>
                     <select id="programStudi" v-model="form.programStudi" required>
                         <option value="" disabled selected>Pilih program studi</option>
                         <option value="Teknologi Informasi">Teknologi Informasi</option>
-                        <option value="Pendidikan Teknologi Informasi">PendidikanTeknologi Informasi</option>
+                        <option value="Pendidikan Teknologi Informasi">Pendidikan Teknologi Informasi</option>
                         <option value="Sistem Informasi">Sistem Informasi</option>
                         <option value="Teknik Informatika">Teknik Informatika</option>
                         <option value="Teknik Komputer">Teknik Komputer</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="title2" for="tanggalPeminjaman">Tanggal Peminjaman *</label>
-                    <input type="date" id="tanggalPeminjaman" v-model="form.tanggalPeminjaman" required/>
+                    <label class="form-label" for="tanggalPeminjaman">Tanggal Peminjaman *</label>
+                    <input type="date" id="tanggalPeminjaman" v-model="form.tanggalPeminjaman" required />
                 </div>
                 <div class="form-group">
-                    <label class="title2" for="waktuPeminjaman">Waktu Peminjaman *</label>
+                    <label class="form-label" for="waktuPeminjaman">Waktu Peminjaman *</label>
                     <input type="time" id="waktuPeminjaman" v-model="form.waktuPeminjaman" required />
                 </div>
                 <div class="form-group">
-                    <label class="title2" for="durasiPeminjaman">Durasi Peminjaman *</label>
+                    <label class="form-label" for="durasiPeminjaman">Durasi Peminjaman *</label>
                     <input type="number" id="durasiPeminjaman" v-model="form.durasiPeminjaman" min="1" required />
                 </div>
                 <div class="form-group">
-                    <label class="title2" for="room">Ruangan *</label>
+                    <label class="form-label" for="room">Ruangan *</label>
                     <select id="room" v-model="form.room" required>
-                        <option value="">Pilih Ruangan</option>
+                        <option value="" disabled selected>Pilih Ruangan</option>
                         <option value="Hall lantai 1">Hall lantai 1</option>
                         <option value="Ruangan 4.1">Ruangan 4.1</option>
                         <option value="Ruangan 3.2">Ruangan 3.2</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="title2" for="keperluan">Keperluan Peminjaman *</label>
+                    <label class="form-label" for="keperluan">Keperluan Peminjaman *</label>
                     <textarea id="keperluan" v-model="form.keperluan" required></textarea>
                 </div>
                 <div class="form-actions">
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import Sidebar from '@/components/Layout/Sidebar.vue';
+import Sidebar from '@/components/Layout/Sidebar.vue'
 
 export default {
     components: {
@@ -73,9 +73,7 @@ export default {
                 tanggalPeminjaman: '',
                 waktuPeminjaman: '',
                 durasiPeminjaman: 1,
-                gedung: '',
-                lantai: '',
-                ruangDipinjam: '',
+                room: '',
                 keperluan: ''
             }
         };
@@ -92,9 +90,7 @@ export default {
                 tanggalPeminjaman: '',
                 waktuPeminjaman: '',
                 durasiPeminjaman: 1,
-                gedung: '',
-                lantai: '',
-                ruangDipinjam: '',
+                room: '',
                 keperluan: ''
             };
         }
@@ -121,7 +117,7 @@ export default {
     margin-bottom: 20px;
 }
 
-.title2 {
+.form-label {
     font-size: small;
     font-weight: bold;
 }
