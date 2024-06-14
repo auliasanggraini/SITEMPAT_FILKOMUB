@@ -4,7 +4,11 @@
         <div class="content">
             <h1 class="title">Peminjaman</h1>
             <div class="button-container">
-                <button @click="createForm">Buat Baru</button>
+                <router-link to="/peminjaman/create" class="button-link">
+                    <button class="button">
+                        <i class="fas fa-plus-circle"></i> Buat Baru
+                    </button>
+                </router-link>
             </div>
             <div class="current-booking">
                 <h2 class="title2">Sedang Berlangsung</h2>
