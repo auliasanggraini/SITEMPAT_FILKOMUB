@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import Sidebar from '@/components/Layout/Sidebar.vue'
+import Sidebar from '@components/Layout/sidebar.vue';
 
 export default {
     components: {

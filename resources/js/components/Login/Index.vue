@@ -139,3 +139,18 @@ h3 {
     text-decoration: underline;
 }
 </style>
+
+<?php 
+methods: {
+    async login() {
+        try {
+            let response = await axios.post('http://localhost:8000/api/login', {
+                email: this.email,
+                password: this.password
+            });
+            console.log('Login successful, token:', response.data.token);
+        } catch (error) {
+            console.error('Login failed:', error);
+        }
+    }
+}
