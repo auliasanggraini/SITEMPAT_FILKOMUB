@@ -7,25 +7,23 @@
         </div>
         <ul class="sidebar-nav">
             <li>
-                <router-link to="/ruang-kelas">
+                <router-link to="/dashboard">
                     <i class="fas fa-door-open"></i> Dashboard
                 </router-link>
             </li>
             <li>
                 <router-link to="/peminjaman">
-                    <i class="fas fa-book"></i> Form Peminjaman
+                    <i class="fas fa-book"></i> Peminjaman
                 </router-link>
             </li>
             <li>
-                <router-link to="/profil">
+                <router-link to="/profile">
                     <i class="fas fa-user"></i> Profil
                 </router-link>
             </li>
         </ul>
         <div class="sidebar-footer">
-            <router-link to="/login">
-                <i class="fas fa-sign-out-alt"></i> Keluar
-            </router-link>
+            <<button @click="logout">Log out</button>
         </div>
     </div>
 </template>
@@ -33,6 +31,10 @@
 <script>
 export default {
     name: 'Sidebar',
+    methods: {
+        logout() {
+        }
+    }
 };
 </script>
 

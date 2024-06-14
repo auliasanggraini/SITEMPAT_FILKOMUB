@@ -1,111 +1,46 @@
 <template>
-    <div class="container">
-        <div class="header">
-            <img src="/build/assets/logo-filkom.png" alt="Filkom Logo" class="logo" />
-            <div class="title">
-                <h1>SISTEM INFORMASI</h1>
-                <h2>PEMINJAMAN RUANGAN</h2>
-                <h3>UNIVERSITAS BRAWIJAYA</h3>
-            </div>
-            <div class="notification">
-                <i class="fa fa-bell"></i>
-            </div>
-        </div>
+    <div class="profile-page">
+        <Sidebar />
         <div class="content">
-            <div class="profile">
-                <div class="profile-image">
-                    <img src="/profile-placeholder.png" alt="Profile Picture" />
-                </div>
-                <div class="profile-info">
-                    <h3>Elyzia Janara</h3>
-                    <p>Mahasiswa</p>
-                    <ul>
-                        <li>
-                            <router-link to="/ruang-kelas">Ruang Kelas</router-link>
-                        </li>
-                        <li>
-                            <router-link to="/peminjaman">Peminjaman</router-link>
-                        </li>
-                        <li>
-                            <router-link to="/profil">Profil</router-link>
-                        </li>
-                    </ul>
-                </div>
+            <h1 class="title">Profile</h1>
+            <div class="form-group">
+                <label class="title2" for="email">Alamat email *</label>
+                <input type="email" id="email" v-model="email" placeholder="shafaradina@student.ub.ac.id">
             </div>
-            <div class="form-container">
-                <h1>Manage Your Profile Information</h1>
-                <p>Use the forms below to update the information we have on file for your account</p>
-
-                <h2>Contact Information</h2>
-                <div class="form-group">
-                    <label for="email">Alamat email *</label>
-                    <p>Harap menggunakan alamat email yang valid untuk mendapatkan respon jawaban dari ticket yang
-                        diajukan</p>
-                    <input type="email" id="email" v-model="email" placeholder="shafaradina@student.ub.ac.id">
-                </div>
-                <div class="form-group">
-                    <label for="name">Nama Lengkap *</label>
-                    <input type="text" id="name" v-model="name" placeholder="Shafa Auliya Faradina">
-                </div>
-                <div class="form-group">
-                    <label for="nim">NIM/NIK/ID Lain *</label>
-                    <input type="text" id="nim" v-model="nim" placeholder="215150700111057">
-                </div>
-                <div class="form-group">
-                    <label for="program">Program Studi *</label>
-                    <select id="program" v-model="program">
-                        <option value="Teknologi Informasi">Teknologi Informasi</option>
-                        <option value="Sistem Informasi">Sistem Informasi</option>
-                        <option value="Teknik Informatika">Teknik Informatika</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Nomor HP</label>
-                    <input type="tel" id="phone" v-model="phone" placeholder="08885964169">
-                </div>
-
-                <h2>Preferences</h2>
-                <div class="form-group">
-                    <label for="timezone">Time Zone:</label>
-                    <select id="timezone" v-model="timezone">
-                        <option value="Asia/Jakarta">Asia/Jakarta</option>
-                        <option value="America/New_York">America/New_York</option>
-                        <option value="Europe/London">Europe/London</option>
-                    </select>
-                    <button @click="detectTimezone">Auto Detect</button>
-                </div>
-                <div class="form-group">
-                    <label for="language">Preferred Language:</label>
-                    <select id="language" v-model="language">
-                        <option value="id">Bahasa Indonesia</option>
-                        <option value="en">English</option>
-                    </select>
-                </div>
-
-                <h2>Access Credentials</h2>
-                <div class="form-group">
-                    <label for="currentPassword">Current Password:</label>
-                    <input type="password" id="currentPassword" v-model="currentPassword" placeholder="********">
-                </div>
-                <div class="form-group">
-                    <label for="newPassword">New Password:</label>
-                    <input type="password" id="newPassword" v-model="newPassword" placeholder="********">
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm New Password:</label>
-                    <input type="password" id="confirmPassword" v-model="confirmPassword" placeholder="********">
-                </div>
-
-                <button @click="updateProfile">Update</button>
-                <button @click="resetForm">Reset</button>
-                <button @click="cancel">Cancel</button>
+            <div class="form-group">
+                <label class="title2" for="name">Nama Lengkap *</label>
+                <input type="text" id="name" v-model="name" placeholder="Shafa Auliya Faradina">
             </div>
+            <div class="form-group">
+                <label class="title2" for="nim">NIM *</label>
+                <input type="text" id="nim" v-model="nim" placeholder="215150700111057">
+            </div>
+            <div class="form-group">
+                <label class="title2" for="program">Program Studi *</label>
+                <select id="program" v-model="program">
+                    <option value="Teknologi Informasi">Teknologi Informasi</option>
+                    <option value="Pendidikan Teknologi Informasi">PendidikanTeknologi Informasi</option>
+                    <option value="Sistem Informasi">Sistem Informasi</option>
+                    <option value="Teknik Informatika">Teknik Informatika</option>
+                    <option value="Teknik Komputer">Teknik Komputer</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="title2" for="phone">Nomor HP</label>
+                <input type="tel" id="phone" v-model="phone" placeholder="+62 81226105968">
+            </div>
+            <button @click="updateProfile">Update</button>
+            <button type="reset" @click="resetForm">Reset</button>
         </div>
     </div>
 </template>
 
 <script>
+import Sidebar from '@/components/Layout/Sidebar.vue'
 export default {
+    components: {
+        Sidebar
+    },
     data() {
         return {
             email: '',
@@ -121,14 +56,7 @@ export default {
         };
     },
     methods: {
-        detectTimezone() {
-            // Implement timezone detection logic here
-            // For example:
-            // this.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        },
         updateProfile() {
-            // Implement update profile logic here
-            // This would usually involve sending data to a backend API
             console.log('Update Profile:', {
                 email: this.email,
                 name: this.name,
@@ -155,122 +83,33 @@ export default {
             this.confirmPassword = '';
         },
         cancel() {
-            // Implement cancel logic here, e.g., navigate away from the page
         },
     },
 };
 </script>
 
 <style scoped>
-.container {
+.profile-page {
     display: flex;
-    height: 100vh;
-}
-
-.header {
-    background-color: #f2f2f2;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 300px;
-}
-
-.logo {
-    width: 100px;
-    height: auto;
-}
-
-.title {
-    text-align: center;
-}
-
-.title h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.title h2 {
-    margin: 0;
-    font-size: 18px;
-}
-
-.title h3 {
-    margin: 0;
-    font-size: 14px;
-}
-
-.notification {
-    cursor: pointer;
-    font-size: 20px;
-    color: #888;
 }
 
 .content {
-    display: flex;
-    flex-grow: 1;
     padding: 20px;
+    flex: 1;
+    margin-left: 270px;
 }
 
-.profile {
-    background-color: #e0f2f7;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-}
-
-.profile-image {
-    text-align: center;
-}
-
-.profile-image img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.profile-info {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.profile-info h3 {
-    margin: 0;
-    font-size: 20px;
+.title {
+    font-size: 1.5em;
     font-weight: bold;
+    border-bottom: 2px solid #000;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-.profile-info p {
-    margin: 5px 0;
-}
-
-.profile-info ul {
-    list-style: none;
-    padding: 0;
-}
-
-.profile-info ul li {
-    margin-bottom: 10px;
-}
-
-.profile-info ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
-.form-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-h1,
-h2 {
-    text-align: center;
+.title2 {
+    font-size: small;
+    font-weight: bold;
 }
 
 .form-group {
@@ -286,9 +125,9 @@ input,
 select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    background-color: #F5F8FA;
 }
 
 button {
@@ -298,9 +137,15 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-right: 10px;
 }
 
 button:hover {
     background-color: #0069d9;
+}
+
+button[type="reset"] {
+    background-color: darkgrey;
+    color: #000;
 }
 </style>
