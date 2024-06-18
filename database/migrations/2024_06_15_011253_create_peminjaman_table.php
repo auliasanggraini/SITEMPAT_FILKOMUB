@@ -10,14 +10,15 @@ class CreatePeminjamanTable extends Migration
     {
         Schema::create('peminjaman', function (Blueprint $table) {
             $table->id();
-            $table->string('Penanggung Jawab');
-            $table->string('NIM');
-            $table->string('Program Studi');
-            $table->date('Tanggal Peminjaman');
-            $table->time('Waktu Peminjaman');
-            $table->integer('Durasi Peminjaman');
-            $table->string('Ruangan');
-            $table->text('Keperluan Peminjaman');
+            $table->string('penanggung_jawab');
+            $table->string('nim');
+            $table->string('program_studi');
+            $table->date('tanggal_peminjaman');
+            $table->time('waktu_peminjaman');
+            $table->integer('durasi_peminjaman');
+            $table->string('ruangan');
+            $table->text('keperluan_peminjaman');
+            $table->enum('status', ['Pending', 'Booking', 'Selesai'])->default('Pending');
             $table->timestamps();
         });
     }

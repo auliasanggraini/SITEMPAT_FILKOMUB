@@ -13,17 +13,17 @@
             <div class="current-booking">
                 <h2 class="title2">Sedang Berlangsung</h2>
                 <ul>
-                    <li v-for="booking in currentBookings" :key="booking.id">
-                        {{ booking.room }} - {{ booking.date }} - {{ booking.time }} -
+                    <li v-for="booking in bookingData" :key="booking.id"> 
+                        {{ booking.ruangan }} - {{ booking.tanggal_peminjaman }} - {{ booking.waktu_peminjaman }} -
                         <span :class="statusClass(booking.status)">{{ booking.status }}</span>
                     </li>
                 </ul>
-            </div>
+            </div>           
             <div class="history">
                 <h2 class="title2">Riwayat Peminjaman</h2>
                 <ul>
                     <li v-for="history in bookingHistory" :key="history.id">
-                        {{ history.room }} - {{ history.date }} - {{ history.time }} -
+                        {{ history.ruangan }} - {{ history.tanggal_peminjaman }} - {{ history.waktu_peminjaman }} - {{ history.room }} - {{ history.date }} - {{ history.time }} -
                         <span :class="statusClass(history.status)">{{ history.status }}</span>
                     </li>
                 </ul>
@@ -39,14 +39,18 @@ export default {
     components: {
         Sidebar
     },
+    
+    props: {
+        bookingData: Array
+    },
     data() {
         return {
             currentBookings: [
-                { id: 1, room: 'Hall lantai 1', date: '4 Mei 2024', time: '10.00 WIB', status: 'Booking' },
+                { id: 1, ruangan: 'Hall lantai 1', tanggal_peminjaman: '4 Mei 2024', waktu_peminjaman: '10.00 WIB', status: 'Booking' },
             ],
             bookingHistory: [
-                { id: 1, room: 'Ruangan 4.1', date: '18 April 2024', time: '13.00 WIB', status: 'Selesai' },
-                { id: 2, room: 'Ruangan 3.2', date: '4 April 2024', time: '09.00 WIB', status: 'Selesai' },
+                { id: 1, ruangan: 'Ruangan 4.1', tanggal_peminjaman: '18 April 2024', waktu_peminjaman: '13.00 WIB', status: 'Selesai' },
+                { id: 2, ruangan: 'Ruangan 3.2', tanggal_peminjaman: '4 April 2024', waktu_peminjaman: '09.00 WIB', status: 'Selesai' },
             ]
         }
     },

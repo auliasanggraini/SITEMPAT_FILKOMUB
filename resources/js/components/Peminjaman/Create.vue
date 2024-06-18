@@ -90,8 +90,8 @@ export default {
                 tanggalPeminjaman: this.form.tanggalPeminjaman,
                 waktuPeminjaman: this.form.waktuPeminjaman,
                 durasiPeminjaman: this.form.durasiPeminjaman,
-                room: this.form.room,
-                keperluan: this.form.keperluan
+                ruangan: this.form.room,
+                keperluanPeminjaman: this.form.keperluan
             })
             .then(response => {
                 console.log('Data berhasil disimpan:', response.data);
