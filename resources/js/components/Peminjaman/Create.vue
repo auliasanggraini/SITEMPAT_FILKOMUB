@@ -58,7 +58,8 @@
 </template>
 
 <script>
-import Sidebar from '@/components/Layout/Sidebar.vue'
+import Sidebar from '@/components/Layout/Sidebar.vue';
+import axios from 'axios';
 
 export default {
     components: {
@@ -80,7 +81,25 @@ export default {
     },
     methods: {
         submitForm() {
-            console.log('Form data:', this.form);
+            console.log('Mengirim data form:', this.form);
+
+            axios.post('/api/peminjaman/create', {
+                penanggungJawab: this.form.penanggungJawab,
+                nim: this.form.nim,
+                programStudi: this.form.programStudi,
+                tanggalPeminjaman: this.form.tanggalPeminjaman,
+                waktuPeminjaman: this.form.waktuPeminjaman,
+                durasiPeminjaman: this.form.durasiPeminjaman,
+                room: this.form.room,
+                keperluan: this.form.keperluan
+            })
+            .then(response => {
+                console.log('Data berhasil disimpan:', response.data);
+                this.$router.push('/peminjaman'); // Redirect ke halaman Peminjaman/Index.vue
+            })
+            .catch(error => {
+                console.error('Gagal menyimpan data:', error);
+            });
         },
         resetForm() {
             this.form = {
@@ -95,7 +114,7 @@ export default {
             };
         }
     }
-};
+}
 </script>
 
 <style scoped>
