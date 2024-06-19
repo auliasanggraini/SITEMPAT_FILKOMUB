@@ -11,48 +11,72 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
+        // Validasi input pengguna
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:4', 'confirmed'],
         ]);
 
+        // Kembalikan respons jika validasi gagal
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
         }
 
+        // Buat pengguna baru
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        // Optionally, log the user in after registration
+        // (Opsional) Log pengguna setelah registrasi
         // auth()->login($user);
 
-        return response()->json(['message' => 'User registered successfully'], 201);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User registered successfully',
+            'user' => $user
+        ], 201);
     }
 
     public function login(Request $request)
     {
+        // Validasi input pengguna
         $validator = Validator::make($request->all(), [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
         ]);
 
+        // Kembalikan respons jika validasi gagal
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
         }
 
+        // Cari pengguna berdasarkan email
         $user = User::where('email', $request->email)->first();
 
+        // Verifikasi kredensial pengguna
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Invalid credentials'
+            ], 401);
         }
 
-        // Generate a token for the user
+        // Buat token untuk pengguna
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer'], 200);
+        return response()->json([
+            'status' => 'success',
+            'access_token' => $token,
+            'token_type' => 'Bearer'
+        ], 200);
     }
 }

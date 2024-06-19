@@ -44,25 +44,49 @@ export default {
         }
     },
     methods: {
-        async register() {
-            try {
-                const response = await axios.post('/api/register', {
-                    name: this.name,
-                    email: this.email,
-                    password: this.password,
-                    password_confirmation: this.confirmPassword
-                });
+        register() {
+            console.log('Mengirim data:', this.name, this.email, this.password, this.confirmPassword);
+
+            axios.post('/api/register', {
+                name: this.name,
+                email: this.email,
+                password: this.password,
+                password_confirmation: this.confirmPassword
+            })
+            .then(response => {
                 console.log('Registration successful:', response.data);
-            } catch (error) {
+                this.$router.push('/login'); // Redirect ke halaman login
+            })
+            .catch(error => {
                 console.error('Registration error:', error.response.data);
-            }
+            });
         },
         registerWithGoogle() {
             console.log('Register with Google');
-            // Implement Google registration logic
+            const clientId = 'YOUR_GOOGLE_CLIENT_ID';  // Replace with your Google Client ID
+            google.accounts.id.initialize({
+                client_id: clientId,
+                callback: this.handleCredentialResponse
+            });
+            google.accounts.id.prompt();
+        },
+        handleCredentialResponse(response) {
+            console.log('Google response:', response);
+
+            axios.post('/api/auth/google', {
+                token: response.credential
+            })
+            .then(res => {
+                console.log('Google registration successful:', res.data);
+                this.$router.push('/login'); // Redirect ke halaman login
+            })
+            .catch(error => {
+                console.error('Google registration error:', error.response.data);
+            });
         }
     }
 }
+
 </script>
 
 

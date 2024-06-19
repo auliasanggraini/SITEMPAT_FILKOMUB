@@ -36,16 +36,20 @@ export default {
         }
     },
     methods: {
-        async login() {
-            try {
-                const response = await axios.post('/api/login', {
-                    email: this.email,
-                    password: this.password
-                });
+        login() {
+            console.log('Mengirim data:', this.email, this.password);
+
+            axios.post('/api/login', {
+                email: this.email,
+                password: this.password
+            })
+            .then(response => {
                 console.log('Login successful:', response.data);
-            } catch (error) {
+                this.$router.push('/peminjaman'); // Redirect ke halaman peminjaman
+            })
+            .catch(error => {
                 console.error('Login error:', error.response.data);
-            }
+            });
         }
     }
 }

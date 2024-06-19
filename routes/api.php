@@ -12,6 +12,8 @@ Route::post('/peminjaman/create', [BookingController::class, 'store']);
 Route::post('/peminjaman/update', [BookingController::class, 'update']);
 Route::post('/peminjaman/delete', [BookingController::class, 'delete']);
 
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+
 Route::middleware('auth:api')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();

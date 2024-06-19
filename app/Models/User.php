@@ -6,10 +6,18 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens; // Tambahkan jika menggunakan Laravel Sanctum
 
 class User extends Authenticatable
 {
-    use     HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable; // Tambahkan HasApiTokens jika menggunakan Laravel Sanctum
+
+    /**
+     * Nama tabel di database.
+     *
+     * @var string
+     */
+    protected $table = 'users'; 
 
     /**
      * The attributes that are mass assignable.
@@ -31,4 +39,9 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+    
 }
