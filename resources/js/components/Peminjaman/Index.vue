@@ -10,21 +10,15 @@
                     </button>
                 </router-link>
             </div>
-            <div class="current-booking">
-                <h2 class="title2">Sedang Berlangsung</h2>
-                <ul>
-                    <li v-for="booking in bookingData" :key="booking.id"> 
-                        {{ booking.ruangan }} - {{ booking.tanggal_peminjaman }} - {{ booking.waktu_peminjaman }} -
-                        <span :class="statusClass(booking.status)">{{ booking.status }}</span>
-                    </li>
-                </ul>
-            </div>           
             <div class="history">
                 <h2 class="title2">Riwayat Peminjaman</h2>
                 <ul>
                     <li v-for="history in bookingHistory" :key="history.id">
-                        {{ history.ruangan }} - {{ history.tanggal_peminjaman }} - {{ history.waktu_peminjaman }} - {{ history.room }} - {{ history.date }} - {{ history.time }} -
-                        <span :class="statusClass(history.status)">{{ history.status }}</span>
+                        <div class="booking-details">
+                            <span>{{ history.ruangan }} - {{ history.tanggal_peminjaman }} - {{ history.waktu_peminjaman
+                                }}</span>
+                            <span :class="statusClass(history.status)">{{ history.status }}</span>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -39,7 +33,7 @@ export default {
     components: {
         Sidebar
     },
-    
+
     props: {
         bookingData: Array
     },
@@ -56,7 +50,6 @@ export default {
     },
     methods: {
         createForm() {
-            // Logic to handle creating a new booking
             console.log('Creating a new booking');
         },
         statusClass(status) {
@@ -98,6 +91,12 @@ export default {
     padding: 10px;
     background-color: #F5F8FA;
     border-radius: 5px;
+}
+
+.booking-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .status {

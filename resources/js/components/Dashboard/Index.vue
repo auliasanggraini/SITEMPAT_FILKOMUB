@@ -13,16 +13,18 @@
             <div v-if="showFloorButtons" class="floor-tabs">
                 <ul>
                     <li v-for="(floor, index) in floors" :key="index" :class="{ 'is-active': activeFloor === index }">
-                        <a @click="activeFloor = index">{{ floor }}</a>
+                        <a @click="setActiveFloor(index)">{{ floor }}</a>
                     </li>
                 </ul>
             </div>
             <div class="box">
                 <div class="columns">
-                    <div class="column is-half" v-for="room in rooms" :key="room.name">
-                        <div class="box">
-                            <p>{{ room.name }}</p>
-                            <p>{{ room.building }}</p>
+                    <div class="column is-half" v-for="room in filteredRooms" :key="room.name">
+                        <div class="room">
+                            <div class="room-info">
+                                <p class="room-name">{{ room.name }}</p>
+                                <p>{{ room.building }}</p>
+                            </div>
                             <span :class="room.status === 'Tersedia' ? 'tag is-success' : 'tag is-danger'">
                                 {{ room.status }}
                             </span>
@@ -57,11 +59,39 @@ export default {
                 'Lantai 3',
                 'Lantai 4'
             ],
+            rooms: [
+                { name: 'GKM Hall', building: 'Gedung Kreativitas Mahasiswa', floor: 'Lantai 1', status: 'Tersedia' },
+                { name: 'GKM 3.1', building: 'Gedung Kreativitas Mahasiswa', floor: 'Lantai 3', status: 'Tersedia' },
+                { name: 'GKM 3.2', building: 'Gedung Kreativitas Mahasiswa', floor: 'Lantai 3', status: 'Tersedia' },
+                { name: 'GKM 3.3', building: 'Gedung Kreativitas Mahasiswa', floor: 'Lantai 3', status: 'Tersedia' },
+                { name: 'GKM 3.4', building: 'Gedung Kreativitas Mahasiswa', floor: 'Lantai 3', status: 'Tersedia' },
+                { name: 'GKM 4.1', building: 'Gedung Kreativitas Mahasiswa', floor: 'Lantai 4', status: 'Tersedia' },
+                { name: 'GKM 4.2', building: 'Gedung Kreativitas Mahasiswa', floor: 'Lantai 4', status: 'Tersedia' },
+                { name: 'Ruangan F3.1', building: 'Gedung F', floor: 'Lantai 3', status: 'Tersedia' },
+                { name: 'Ruangan F3.2', building: 'Gedung F', floor: 'Lantai 3', status: 'Tersedia' },
+                { name: 'Ruangan F3.3', building: 'Gedung F', floor: 'Lantai 3', status: 'Tersedia' },
+                { name: 'Ruangan F3.4', building: 'Gedung F', floor: 'Lantai 3', status: 'Tersedia' },
+                { name: 'Auditorium', building: 'Gedung G', floor: 'Lantai 2', status: 'Tersedia' },
+                { name: 'Lapangan Basket', building: 'Lainnya', floor: null, status: 'Tersedia' },
+                { name: 'Ruang Theater', building: 'Lainnya', floor: null, status: 'Tersedia' },
+                { name: 'Ruang GYM', building: 'Lainnya', floor: null, status: 'Tersedia' },
+            ]
         };
     },
     computed: {
         showFloorButtons() {
             return this.activeTab === 0;
+        },
+        filteredRooms() {
+            if (this.activeTab === 0 && this.activeFloor !== null) {
+                const floor = this.floors[this.activeFloor];
+                return this.rooms.filter(room => room.building === 'Gedung Kreativitas Mahasiswa' && room.floor === floor);
+            } else if (this.activeTab !== 0) {
+                const building = this.tabs[this.activeTab];
+                return this.rooms.filter(room => room.building === building);
+            } else {
+                return [];
+            }
         }
     },
     methods: {
@@ -70,6 +100,9 @@ export default {
             if (index !== 0) {
                 this.activeFloor = null;
             }
+        },
+        setActiveFloor(index) {
+            this.activeFloor = index;
         }
     }
 };
@@ -144,5 +177,34 @@ export default {
 
 .box {
     margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.room {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #F5F8FA;
+    border-radius: 5px;
+}
+
+.room-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.room-name {
+    font-weight: bold;
+}
+
+.tag.is-success {
+    font-weight: bold;
+    color: #28a745;
+}
+
+.tag.is-danger {
+    color: #dc3545;
 }
 </style>

@@ -39,9 +39,21 @@
                     <label class="form-label" for="room">Ruangan *</label>
                     <select id="room" v-model="form.room" required>
                         <option value="" disabled selected>Pilih Ruangan</option>
-                        <option value="Hall lantai 1">Hall lantai 1</option>
-                        <option value="Ruangan 4.1">Ruangan 4.1</option>
-                        <option value="Ruangan 3.2">Ruangan 3.2</option>
+                        <option value="GKM lantai 1">GKM lantai 1</option>
+                        <option value="GKM 3.1">GKM 3.1</option>
+                        <option value="GKM 3.2">GKM 3.2</option>
+                        <option value="GKM 3.3">GKM 3.3</option>
+                        <option value="GKM 3.4">GKM 3.4</option>
+                        <option value="GKM 4.1">GKM 4.1</option>
+                        <option value="GKM 4.2">GKM 4.2</option>
+                        <option value="Gedung G">Auditorium</option>
+                        <option value="Gedung F 3.1">Ruang F3.1</option>
+                        <option value="Gedung F 3.2">Ruang F3.2</option>
+                        <option value="Gedung F 3.3">Ruang F3.3</option>
+                        <option value="Gedung F 3.4">Ruang F3.4</option>
+                        <option value="Lap Basket">Lapangan Basket</option>
+                        <option value="Theater">Ruang Theater</option>
+                        <option value="Gym">Ruang GYM</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -51,6 +63,7 @@
                 <div class="form-actions">
                     <button type="submit">Pinjam Ruangan</button>
                     <button type="reset" @click="resetForm">Reset</button>
+                    <button type="button" @click="cancelForm">Cancel</button>
                 </div>
             </form>
         </div>
@@ -93,13 +106,13 @@ export default {
                 ruangan: this.form.room,
                 keperluanPeminjaman: this.form.keperluan
             })
-            .then(response => {
-                console.log('Data berhasil disimpan:', response.data);
-                this.$router.push('/peminjaman'); // Redirect ke halaman Peminjaman/Index.vue
-            })
-            .catch(error => {
-                console.error('Gagal menyimpan data:', error);
-            });
+                .then(response => {
+                    console.log('Data berhasil disimpan:', response.data);
+                    this.$router.push('/peminjaman'); // Redirect ke halaman Peminjaman/Index.vue
+                })
+                .catch(error => {
+                    console.error('Gagal menyimpan data:', error);
+                });
         },
         resetForm() {
             this.form = {
@@ -112,6 +125,9 @@ export default {
                 room: '',
                 keperluan: ''
             };
+        },
+        cancelForm() {
+            this.$router.push('/peminjaman'); // Redirect to the peminjaman page
         }
     }
 }
@@ -178,5 +194,11 @@ export default {
 
 .form-actions button[type="reset"] {
     background-color: darkgrey;
+    color: #fff;
+}
+
+.form-actions button[type="button"] {
+    background-color: #FF2400;
+    color: #fff;
 }
 </style>
