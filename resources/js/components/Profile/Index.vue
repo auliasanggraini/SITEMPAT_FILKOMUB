@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import Sidebar from '@/components/Layout/Sidebar.vue'
+import axios from 'axios';
+import Sidebar from '@/components/Layout/Sidebar.vue';
 
 export default {
     components: {
@@ -55,22 +56,44 @@ export default {
             phone: ''
         };
     },
+    created() {
+        this.fetchProfile();
+    },
     methods: {
-        updateProfile() {
-            console.log('Update Profile:', {
-                email: this.email,
-                name: this.name,
-                nim: this.nim,
-                program: this.program,
-                phone: this.phone
-            });
+        async fetchProfile() {
+            try {
+                const response = await axios.get('/api/profile');
+                const user = response.data;
+                this.email = user.email;
+                this.name = user.name;
+                this.nim = user.nim;
+                this.program = user.program;
+                this.phone = user.phone;
+            } catch (error) {
+                console.error('Failed to fetch profile:', error.response.data);
+                // Handle error as needed
+            }
+        },
+        async updateProfile() {
+            try {
+                const response = await axios.put('/api/profile', {
+                    email: this.email,
+                    name: this.name,
+                    nim: this.nim,
+                    program: this.program,
+                    phone: this.phone
+                });
+                console.log('Profile updated successfully:', response.data);
+                this.$router.push('/dashboard'); // Redirect ke halaman login
+                // Optionally, show success message or redirect
+            } catch (error) {
+                console.error('Failed to update profile:', error.response.data);
+                // Handle error as needed
+            }
         },
         resetForm() {
-            this.email = '';
-            this.name = '';
-            this.nim = '';
-            this.program = 'Teknologi Informasi';
-            this.phone = '';
+            // Reset form fields to original values fetched from API
+            this.fetchProfile();
         }
     }
 };

@@ -9,8 +9,12 @@ use Illuminate\Http\Request;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/peminjaman', [BookingController::class, 'indexPage']);
-Route::get('/peminjaman/create', [BookingController::class, 'createPage']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/peminjaman', [BookingController::class, 'indexPage']);
+    Route::get('/peminjaman/create', [BookingController::class, 'createPage']);
+    // Route::get('/profile', ['ProfileController::class, 'show']);
+    // Route::put('/profile', ['ProfileController::class, 'update']);
+});
 
 Route::middleware('auth:api')->group(function () {
     Route::get('/user', function (Request $request) {

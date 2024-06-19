@@ -45,7 +45,7 @@ export default {
             })
             .then(response => {
                 console.log('Login successful:', response.data);
-                this.$router.push('/peminjaman'); // Redirect ke halaman peminjaman
+                this.$router.push('/dashboard'); // Redirect ke halaman peminjaman
             })
             .catch(error => {
                 console.error('Login error:', error.response.data);
