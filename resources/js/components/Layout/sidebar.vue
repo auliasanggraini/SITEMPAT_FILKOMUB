@@ -23,7 +23,7 @@
             </li>
         </ul>
         <div class="sidebar-footer">
-            <<button @click="logout">Log out</button>
+            <<button @click.prevent="logout">Log out</button>
         </div>
     </div>
 </template>
@@ -33,6 +33,7 @@ export default {
     name: 'Sidebar',
     methods: {
         logout() {
+            this.$router.push('/login'); // Redirect ke halaman login
         }
     }
 };
