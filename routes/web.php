@@ -10,8 +10,10 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/dashboard');
     Route::get('/peminjaman', [BookingController::class, 'indexPage']);
     Route::get('/peminjaman/create', [BookingController::class, 'createPage']);
+    Route::get('/profile');
     // Route::get('/profile', ['ProfileController::class, 'show']);
     // Route::put('/profile', ['ProfileController::class, 'update']);
 });
